@@ -17,6 +17,7 @@
         - bMU: Bounded search for a predicate within a range.
         - DIVIDES?: Checks if one number divides another using bounded search.
         - PRIME?: Unary predicate that checks for primality. 
+        - NEXT-PRIME: Lambda term that generates the next prime after the input. 
 
     The Y Combinator illustrates key principles of functional programming 
     and lambda calculus, providing a clean approach to recursion.
