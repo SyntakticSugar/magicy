@@ -77,13 +77,17 @@
 ; In theoretical computer science (recursive function theory) this
 ; unbound search operator is often denoted "mu".
 (define (MU-HELPER)
-    (lambda (f)
-        (lambda (x)
-            (if (zero? (- 5 x)) 
-                x 
-                (f (+ x 1))))))
+    (lambda (s)
+        (lambda (p)
+            (lambda (l)
+                (if (p l) 
+                    l 
+                    ((s p) (EVAL-SUM l 1)))))))
 
 (define MU ((Y) (MU-HELPER)))
+
+(define (EVAL-MU p l)
+    ((MU p) l))
 
 ; Bounded search with the Y combinator controlling the recursion.
 (define (bMU-HELPER)
@@ -123,3 +127,6 @@
 
 (define (PRIME? n)
     (not (COMPOSITE? n)))
+
+(define (NEXT-PRIME n)
+    (EVAL-MU (lambda (k) (PRIME? k)) (+ n 1)))
