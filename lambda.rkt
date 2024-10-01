@@ -1,30 +1,39 @@
 #lang racket
 #| 
-    Module: Recursive Lambda Terms with the Y Combinator
+    Module: Recursive Lambda Terms with the Y Combinator.
+    Brief: Anonymous functions recursively called. 
     Author: Robert Culling.
     Status: Experimental.
     Contact: rhsculling at pm dot com
 
     This module explores recursion in Racket using the Y Combinator, 
-    enabling recursion without named functions. 
+    enabling recursion without named functions. Highlight is the 
+    lambda-term that checks whether a natural number is prime. 
 
     Functions implemented:
         - SUM: Recursive addition of two numbers.
         - MUL: Recursive multiplication of two numbers.
-        - MU: Unbounded search for the first number equal to 5.
+        - MU: Unbounded search for solution to a unary predicate.
         - bMU: Bounded search for a predicate within a range.
         - DIVIDES?: Checks if one number divides another using bounded search.
+        - PRIME?: Unary predicate that checks for primality. 
 
     The Y Combinator illustrates key principles of functional programming 
     and lambda calculus, providing a clean approach to recursion.
 
+    Many of the subprocedures are implemented as lambda terms. 
+    However, to allow for easier printing of some values, some functions 
+    from the standard Racket library were used in place of lambda terms. 
+
+    All recursion in these procedures is performed by the Y combinator. 
+    None relies on Racket's ability for a named procedure to call itself. 
+
     This script is used to normalise lambda terms derivied in class. 
-    Saves doing this by hand... 
+    Saves doing this by hand... Please feel free to use these in your class. 
 |#
 
 (displayln "Hello, Racket!")
 (displayln "Let's do recursion with the help of the magic Y Combinator.")
-
 
 ; Behold, Haskell B. Curry's ** Y COMBINATOR ** 
 (define (Y)
@@ -93,7 +102,7 @@
 (define (EVAL-bMU p l u)
     (((bMU p) l) u))
 
-; Where one number divides another is determined by a 
+; Whether one number divides another is determined by a 
 ; bounded search for solutions to an equation. This means 
 ; we can use the procs above to implement DIVIDES? 
 (define (DIVIDES-HELPER)
@@ -104,4 +113,13 @@
 (define (DIVIDES? n d)
     (((DIVIDES-HELPER) n) d))
 
+(define (DIVIDES-N? n)
+    (lambda (k) (DIVIDES? n k)))
 
+; Primality testing can be done by bounded search for 
+; a divisor, using the DIVIDES-N? predicate. 
+(define (COMPOSITE? n)
+    (EVAL-bMU (DIVIDES-N? n) 2 (- n 1)))
+
+(define (PRIME? n)
+    (not (COMPOSITE? n)))
