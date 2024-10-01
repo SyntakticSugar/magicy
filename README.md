@@ -1,1 +1,1 @@
-Recursively calling anonymous 🥷 functions computed with 🪄 Y combinator magic 🧙‍♂️
+Recursively calling anonymous 🥷 lambda-terms computed with 🪄 Y combinator magic 🧙‍♂️
