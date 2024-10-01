@@ -17,6 +17,9 @@
 
     The Y Combinator illustrates key principles of functional programming 
     and lambda calculus, providing a clean approach to recursion.
+
+    This script is used to normalise lambda terms derivied in class. 
+    Saves doing this by hand... 
 |#
 
 (displayln "Hello, Racket!")
